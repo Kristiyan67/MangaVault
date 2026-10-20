@@ -1,0 +1,15 @@
+﻿@model IEnumerable<MangaVault.Models.Genre>
+@{
+    ViewData["Title"] = "Genres";
+}
+
+<h1>Genres</h1>
+<a asp-action="Create" class="btn btn-primary mb-3">Add genre</a>
+
+<ul class="list-group">
+    @foreach (var genre in Model)
+    {
+        <li class="list-group-item">@genre.Name</li>
+    }
+</ul>
+
