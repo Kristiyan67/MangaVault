@@ -11,8 +11,8 @@ namespace MangaVault.Data
         public DbSet<Genre> Genres => Set<Genre>();
         public DbSet<SeriesGenre> SeriesGenres => Set<SeriesGenre>();
         public DbSet<Series> Series => Set<Series>();
-        public DbSet<Volume> Volume => Set<Volume>();
-        public DbSet<Author> Author => Set<Author>();
+        public DbSet<Volume> Volumes => Set<Volume>();
+        public DbSet<Author> Authors => Set<Author>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -36,8 +36,24 @@ namespace MangaVault.Data
                 .WithMany(g => g.SeriesGenres)
                 .HasForeignKey(sg => sg.GenreId)
                 .OnDelete(DeleteBehavior.Restrict);
+            });
 
-                // Series chast s delete behavior
+            builder.Entity<Series>(e =>
+            {
+                e.HasOne(s => s.Author)
+                 .WithMany(a => a.Series)
+                 .HasForeignKey(s => s.AuthorId)
+                 .OnDelete(DeleteBehavior.Restrict);
+
+                e.HasMany(s => s.Volumes)
+                 .WithOne(v => v.Series)
+                 .HasForeignKey(v => v.SeriesId)
+                 .OnDelete(DeleteBehavior.Cascade);
+
+                e.HasMany(s => s.SeriesGenre)
+                 .WithOne(sg => sg.Series)
+                 .HasForeignKey(sg => sg.SeriesId)
+                 .OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<Volume>(e =>

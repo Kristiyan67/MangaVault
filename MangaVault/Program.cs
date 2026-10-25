@@ -12,6 +12,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IGenreService, GenreService>();
 
+builder.Services.AddScoped<IVolumeService, VolumeService>();
+
 
 var app = builder.Build();
 

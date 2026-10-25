@@ -19,7 +19,7 @@ namespace MangaVault.Models
         public bool IsOwned { get; set; }
 
         [Range(0, 999.99, ErrorMessage = "Price must be between {1} and {2}.")]
-        [Column(TypeName = "decimal(8,2")]
+        [Column(TypeName = "decimal(8,2)")]
         public decimal? PurchasePrice { get; set; }
 
         public int SeriesId { get; set; }
